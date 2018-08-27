@@ -102,9 +102,6 @@ var courseCardsData = [
 ]
 export default {
 	name: 'Courses',
-	props: {
-		msg: String
-	},
 	data: () => ({
 		courseCards: courseCardsData
 	})

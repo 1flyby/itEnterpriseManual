@@ -1,5 +1,8 @@
 <template>
 	<v-app>
+		<router-link to="/">Home</router-link>
+		<router-link to="/about">About</router-link>
+  		<router-view></router-view>
 		<v-navigation-drawer
 			width="124"
 			fixed
@@ -55,7 +58,7 @@
 		-->
 		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;'>
 			<v-container  fluid fill-height class='pl-5'>
-				<Courses class='mt-0'/>
+				<!--<Courses class='mt-0'/>-->
 			</v-container>
 		</v-content>
 		<v-footer :fixed='fixed' app>
@@ -65,16 +68,18 @@
 </template>
 
 <script>
-
+/*
 import Courses from './components/Courses'
 import Home from './components/Home'
-
+*/
 export default {
 	name: 'App',
+	/*
 	components: {
 		Courses,
 		Home
 	},
+	*/
 	data () {
 		return {
 			clipped: false,
