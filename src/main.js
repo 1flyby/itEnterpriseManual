@@ -11,9 +11,8 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
-
-import Hello from './components/Home'
-import About from './components/Courses'
+import Home from './components/Home'
+import Courses from './components/Courses'
 
 // инициализируем роуты
 const routes = [
@@ -29,6 +28,7 @@ const router = new VueRouter({
 
 // Создаем экземпляр vue
 new Vue({
+	render: h => h(App),
 // Определяем селектор для корневого компонента
   el: '#app',
   // передаем шаблон корневому компаненту

@@ -1,8 +1,5 @@
 <template>
 	<v-app>
-		<router-link to="/">Home</router-link>
-		<router-link to="/about">About</router-link>
-  		<router-view></router-view>
 		<v-navigation-drawer
 			width="124"
 			fixed
@@ -11,10 +8,12 @@
 			v-model="drawer"
 		>
 		<v-list class=''>
+				<router-link to="/">Home</router-link>
+				<router-link to="/courses">Сourses</router-link>
 			<v-list-tile
 				v-for="(item, index) in items"
 				:key="index"
-				@click=""
+				@click=''
 			>
 				<v-list-tile-title>&nbsp;&nbsp;&nbsp;{{ item.title }}</v-list-tile-title>
 			</v-list-tile>
@@ -56,8 +55,9 @@
 			noise_lines
 			light_noise_diagonal
 		-->
-		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;'>
-			<v-container  fluid fill-height class='pl-5'>
+		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;' class='pt-0'>
+			<v-container fluid class='pl-5 mt-4'>
+		  		<router-view></router-view>
 				<!--<Courses class='mt-0'/>-->
 			</v-container>
 		</v-content>
