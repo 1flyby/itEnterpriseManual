@@ -1,96 +1,155 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left="clipped"
-    >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
-  </v-app>
+	<v-app>
+		<v-navigation-drawer
+			width="124"
+			fixed
+			:clipped="$vuetify.breakpoint.mdAndUp"
+			app
+			v-model="drawer"
+		>
+		<v-list class=''>
+			<v-list-tile
+				v-for="(item, index) in items"
+				:key="index"
+				@click=""
+			>
+				<v-list-tile-title>&nbsp;&nbsp;&nbsp;{{ item.title }}</v-list-tile-title>
+			</v-list-tile>
+		</v-list>
+		</v-navigation-drawer>
+		<v-toolbar
+			app
+			:clipped-left='clipped'
+		>
+			<v-toolbar-side-icon @click.stop='drawer = !drawer'></v-toolbar-side-icon>
+			<div id='logoWrapper' class='ml-5' style='width:350px;height:50px;'>
+				<svg viewBox='140 -4 50 50'>
+					<path fill='#2D469C' d='M6.15 29.74A15.36 15.36 0 0 1 2.87 8.52a7.18 7.18 0 0 0 3.28 3.15zM30.7 17.45A15.35 15.35 0 0 1 6.15 29.74h6.1V11.67a7.16 7.16 0 0 0 3.4-9.56 15.35 15.35 0 0 1 13.77 9.2h-16.1v4h5.13v14.42h6.1v-14.4h6a15.47 15.47 0 0 1 .15 2.12z'/>
+					<circle fill='#55B332' cx='9.22' cy='5.12' r='5.12'/>
+					<path fill='#2D469C' d='m 91.237596,14.879981 c -5.74,0 -8.11,3.83 -8.11,7.47 0,3.64 1.55,7.65001 8.93,7.65001 2.004903,0.0233 3.991948,-0.37891 5.83,-1.18 v -3.55001 h -0.55 c -1.408301,0.94087 -3.047893,1.47702 -4.74,1.55 -2.73,0 -4.92,-1 -4.92,-3.55 3.28,0 9.38,0.09 10.48,0.09 0.24,-3.83 -0.76,-8.48 -6.92,-8.48 z m 2.37,5.83 h -5.92 c -0.03683,-1.65949 1.342116,-3.00166 3,-2.92 1.7005,-0.23487 3.154865,1.2195 2.92,2.92 z m 72.790004,-5.83 c -5.74,0 -8.11,3.83 -8.11,7.47 0,3.64 1.55,7.65001 8.93,7.65001 2.0049,0.0233 3.99195,-0.37891 5.83,-1.18 v -3.55001 h -0.55 c -1.4083,0.94087 -3.04789,1.47702 -4.74,1.55 -2.73,0 -4.92,-1 -4.92,-3.55 3.28,0 9.38,0.09 10.48,0.09 0.28,-3.83 -0.72,-8.48 -6.92,-8.48 z m 2.37,5.83 h -5.92 c -0.0368,-1.65949 1.34212,-3.00166 3,-2.92 1.7005,-0.23487 3.15487,1.2195 2.92,2.92 z m -49.37,-5.74 c -1.63217,0.18541 -3.16284,0.88594 -4.37,2 v -1.63 h -4.56 c -2.14908,-0.12909 -4.25687,0.63014 -5.83,2.1 v -2.1 h -4.56 v 14.30001 h 4.56 v -9.50001 c 1.73,-1.25 4.56,-1.8 5.83,-0.89 v 15.13001 h 4.56 v -5.44 c 1.1871,0.62081 2.49263,0.98213 3.83,1.06 2.73,0 6.47,-2.19 6.47,-7.47001 0,-5.28 -2.38,-7.74 -5.93,-7.56 z m -2.55,11.75 c -0.61325,0.01 -1.22515,-0.0606 -1.82,-0.21 v -7.35 c 0.8015,-0.4339 1.68979,-0.6833 2.6,-0.73 1.78,0 3.05,0.91 3.05,4 0,3.09 -1.65,4.29 -3.84,4.29 z m 25.14,-11.38 v 14.30001 h -4.65 v -10.39001 c -1.28,-0.91 -4.1,-0.36 -5.83,0.89 v 9.50001 h -4.56 v -14.30001 h 4.56 v 2.09 c 1.57313,-1.46986 3.68092,-2.22909 5.83,-2.1 z m -4.65,-7.2100103 h 4.65 v 3.6400103 h -4.65 z m 19.13,7.9300103 v 3.55 h -0.36 c -1.34697,-1.04846 -3.00309,-1.6216 -4.71,-1.63 -1.18,0 -2.92,0.27 -2.92,1.28 0,1.18 2.73,1.28 4.65,1.73 1.55,0.36 3.83,1.09 4,4 0.24,3.91001 -4.19,5.10001 -7.29,5.10001 -2.09127,0.013 -4.16443,-0.38809 -6.1,-1.18 v -3.83001 h 0.46 c 1.49124,1.21919 3.35388,1.89299 5.28,1.91001 2.46,0 3,-0.46001 3,-1.18001 0,-0.91 -1.28,-1.21 -3.64,-1.55 -1.91,-0.27 -5,-1.49 -5,-4.56 0.094,-1.69673 1.15675,-3.18763 2.73,-3.83 1.52723,-0.64248 3.17368,-0.95268 4.83,-0.91 1.75668,-0.0778 3.50351,0.3012 5.07,1.1 z m -108.070004,-1.18 c -7.38,0 -8.2,5.65 -8.2,7.65 0,2 0.73,7.47001 9,7.47001 2.004903,0.0233 3.991948,-0.37891 5.83,-1.18 v -3.55001 h -0.55 c -1.408301,0.94087 -3.047893,1.47702 -4.74,1.55 -2.73,0 -5,-1 -5,-3.55 3.28,0 9.48,0.09 10.57,0.09 0.31,-3.83 -0.69,-8.48 -6.91,-8.48 z m 2.37,5.83 h -6 c 0.08557,-1.64601 1.451817,-2.93293 3.1,-2.92 1.7005,-0.23487 3.154865,1.2195 2.92,2.92 z m 20.79,1.82 v 7.11001 h -4.55 v -7.26001 c 0,-1.52 -0.09,-2.67 -1,-3.31 -1.17,-0.82 -3.28,-0.27 -4.28,0.59 v 10.00001 h -4.47 v -14.23001 h 4.46 v 1.48 c 3.1,-2.48 6.41,-2.52 8.29,-0.75 1.39,1.27 1.55,2.64 1.55,6.37 z m 7.29,-4.1 v 5.74 c 0,4.10001 3.64,2.28 3.92,2.28 h 0.36 v 3.00001 c -2.08,0.66 -5.28,0.78 -7,-0.36 -1.200539,-0.8583 -1.885401,-2.26566 -1.82,-3.74001 v -6.92 h -1.91 v -1.82 l 6.47,-3.92 v 2.64 h 4.28 v 3.1 z'/>
+					<text id='itLogoAddon' x='182' y='30' fill='#55B332'>University</text>
+				<!--
+					<path d='m 318.9305,24.426785 -3.39492,-9.06322 h -5.09238 l 6.24423,14.21622 -2.60682,6.00173 h 4.39521 l 8.54792,-20.21795 h -4.39521 z m -14.58517,-5.97441 v 5.74 c 0,4.10001 3.64,2.28 3.92,2.28 h 0.36 v 3.00001 c -2.08,0.66 -5.28,0.78 -7,-0.36 -1.20054,-0.8583 -1.8854,-2.26566 -1.82,-3.74001 v -6.92 h -1.91 v -1.82 l 6.47,-3.92 v 2.64 h 4.28 v 3.1 z m -13.43955,-3.1 4.65,0.01 v 14.30001 h -4.65 z m 0,-7.2000086 h 4.65 v 3.6400086 h -4.65 z m -61.95357,7.2111986 6.51703,14.30715 h 3.27367 l 6.54735,-14.30715 h -4.18303 l -3.75866,9.18447 -3.66772,-9.18447 z m -40.80005,7.18869 v -7.11 h 4.55 v 7.26 c 0,1.52 0.09,2.67 1,3.31 1.17,0.82 3.28,0.27 4.28,-0.59 v -10 h 4.47 v 14.23 h -4.46 v -1.48 c -3.1,2.48 -6.41,2.52 -8.29,0.75 -1.39,-1.27 -1.55,-2.64 -1.55,-6.37 z m 31.3656,1.1e-4 v 7.11 h -4.55 v -7.26 c 0,-1.52 -0.09,-2.67 -1,-3.31 -1.17,-0.82 -3.28,-0.27 -4.28,0.59 v 10 h -4.47 v -14.23 h 4.46 v 1.48 c 3.1,-2.48 6.41,-2.52 8.29,-0.75 1.39,1.27 1.55,2.64 1.55,6.37 z m 2.70969,-7.2 4.65,0.01 v 14.3 h -4.65 z m 0,-7.1999986 h 4.65 v 3.6399986 h -4.65 z m 65.50772,7.9300086 v 3.55 h -0.36 c -1.34697,-1.04846 -3.00309,-1.62159 -4.71,-1.63 -1.18,0 -2.92,0.27 -2.92,1.28 0,1.18 2.73,1.28 4.65,1.73 1.55,0.36 3.83,1.09 4,4 0.24,3.91001 -4.19,5.10001 -7.29,5.10001 -2.09127,0.013 -4.16443,-0.38809 -6.1,-1.18 v -3.83001 h 0.46 c 1.49124,1.21919 3.35388,1.89298 5.28,1.91001 2.46,0 3,-0.46001 3,-1.18001 0,-0.91 -1.28,-1.21 -3.64,-1.55 -1.91,-0.27 -5,-1.49 -5,-4.56 0.094,-1.69673 1.15675,-3.18763 2.73,-3.83 1.52723,-0.64248 3.17368,-0.95268 4.83,-0.91 1.75668,-0.0778 3.50351,0.30119 5.07,1.1 z m -14.82106,3.19 c -1.28,-0.91 -4.1,-0.36 -5.83,0.89 v 9.50001 h -4.56 v -14.30001 h 4.56 v 2.09 c 1.57313,-1.46986 4.75668,-2.32263 6.90576,-2.19354 z m -19.5058,-4.37 c -7.38,0 -8.2,5.65 -8.2,7.65 0,2 0.73,7.47001 9,7.47001 2.0049,0.0233 3.99195,-0.37891 5.83,-1.18 v -3.55001 h -0.55 c -1.4083,0.94087 -3.04789,1.47703 -4.74,1.55 -2.73,0 -5,-1 -5,-3.55 3.28,0 9.48,0.09 10.57,0.09 0.31,-3.83 -0.69,-8.48 -6.91,-8.48 z m 2.37,5.83 h -6 c 0.0856,-1.64601 1.45182,-2.93292 3.1,-2.92 1.7005,-0.23486 3.15487,1.2195 2.92,2.92 z'/>
+				-->
+				</svg>
+			</div>
+			<v-flex md4>
+				<v-text-field
+					style='padding-top: 8px;transform: scale(.86);'
+					append-icon='search'
+					label='Search'
+					single-line
+					outline
+				></v-text-field>
+			</v-flex>
+		</v-toolbar>
+		<!--patterns for bg
+			http://thepatternlibrary.com/img/ao.gif
+			https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg
+			textured_paper
+			pw_maze_white
+			pixel_weave
+			graphy
+			noise_lines
+			light_noise_diagonal
+		-->
+		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;'>
+			<v-container  fluid fill-height class='pl-5'>
+				<Courses class='mt-0'/>
+			</v-container>
+		</v-content>
+		<v-footer :fixed='fixed' app>
+			<span>&copy; 2018</span>
+		</v-footer>
+	</v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+
+import Courses from './components/Courses'
+import Home from './components/Home'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-  data () {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
+	name: 'App',
+	components: {
+		Courses,
+		Home
+	},
+	data () {
+		return {
+			clipped: false,
+			drawer: true,
+			fixed: false,
+			items: [{
+				title: 'Home',
+			},{
+				title: 'Courses',
+			},{
+				title: 'Modules',
+			}],
+			miniVariant: false,
+			right: true,
+			rightDrawer: false
+		}
+	}
 }
+
+import axios from 'axios'
+function runWebCalculation (params) {
+	axios({
+		method: 'post',
+		url: 'https://m.it.ua/ws/webservice.asmx/ExecuteEx?pureJSON=',
+		data: {
+			calcId: params.serviceName,
+			args: JSON.stringify(params.parameters),
+			ticket: ''
+		}
+	})
+	.then(function (response) {
+		// handle success
+		params.onSuccess(response.data);
+	})
+	.catch(function (error) {
+		// handle error
+		console.log(error);
+		if(params.onError)
+		{
+			params.onError(error);
+		}
+	})
+	.then(function () {
+		// always executed
+		if(params.finnaly)
+		{
+			params.finnaly();
+		}
+	});
+}
+
+	runWebCalculation({
+		serviceName: '_LMS.COURSES.GET',
+		parameters: { },
+		onSuccess: function(data) { 
+			console.log(data.courses); 
+		}
+	});
 </script>
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Candal|Lalezar');
+
+
+svg {
+	width:100%;
+	height:100%;
+}
+#itLogoAddon {
+	font-size: 28px;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+}
+</style>
