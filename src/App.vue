@@ -8,12 +8,11 @@
 			v-model="drawer"
 		>
 		<v-list class=''>
-				<router-link to="/">Home</router-link>
-				<router-link to="/courses">Сourses</router-link>
 			<v-list-tile
 				v-for="(item, index) in items"
 				:key="index"
-				@click=''
+				@click="$router.push(item.routerLinkData)"
+				@click.stop='drawer = !drawer'
 			>
 				<v-list-tile-title>&nbsp;&nbsp;&nbsp;{{ item.title }}</v-list-tile-title>
 			</v-list-tile>
@@ -57,7 +56,7 @@
 		-->
 		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;' class='pt-0'>
 			<v-container fluid class='pl-5 mt-4'>
-		  		<router-view></router-view>
+				<router-view></router-view>
 				<!--<Courses class='mt-0'/>-->
 			</v-container>
 		</v-content>
@@ -87,10 +86,13 @@ export default {
 			fixed: false,
 			items: [{
 				title: 'Home',
+				routerLinkData: '/'
 			},{
 				title: 'Courses',
+				routerLinkData: '/courses'
 			},{
 				title: 'Modules',
+				routerLinkData: '/modules'
 			}],
 			miniVariant: false,
 			right: true,
