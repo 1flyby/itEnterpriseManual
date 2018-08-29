@@ -55,7 +55,7 @@
 			light_noise_diagonal
 		-->
 		<v-content style='background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/light_noise_diagonal.png);background-repeat: repeat;' class='pt-0'>
-			<v-container fluid class='pl-5 mt-4'>
+			<v-container fluid class='pa-0 mt-5 pt-3'>
 				<router-view></router-view>
 				<!--<Courses class='mt-0'/>-->
 			</v-container>
@@ -101,45 +101,6 @@ export default {
 	}
 }
 
-import axios from 'axios'
-function runWebCalculation (params) {
-	axios({
-		method: 'post',
-		url: 'https://m.it.ua/ws/webservice.asmx/ExecuteEx?pureJSON=',
-		data: {
-			calcId: params.serviceName,
-			args: JSON.stringify(params.parameters),
-			ticket: ''
-		}
-	})
-	.then(function (response) {
-		// handle success
-		params.onSuccess(response.data);
-	})
-	.catch(function (error) {
-		// handle error
-		console.log(error);
-		if(params.onError)
-		{
-			params.onError(error);
-		}
-	})
-	.then(function () {
-		// always executed
-		if(params.finnaly)
-		{
-			params.finnaly();
-		}
-	});
-}
-
-	runWebCalculation({
-		serviceName: '_LMS.COURSES.GET',
-		parameters: { },
-		onSuccess: function(data) { 
-			console.log(data.courses); 
-		}
-	});
 </script>
 <style>
 

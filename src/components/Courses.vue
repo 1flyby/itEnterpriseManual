@@ -3,7 +3,7 @@
 		<v-layout wrap row>
 			<v-flex v-for='i in courseCards' xs4>
 				<v-card style='margin: 20px 20px 0px 0px' hover height='260px'>
-					<v-layout v-bind:class='i.backgroundColor'>
+					<v-layout v-bind:style="{'background-color': i.backgroundColor}">
 						<v-flex xs5>
 							<v-card-media
 								v-bind:src='i.imageLink'
@@ -14,22 +14,25 @@
 						<v-flex xs7>
 							<v-card-title primary-title>
 								<v-layout align-end justify-end column>
-									<div class='white--text' style='font-size:14px;font-weight:600'>{{i.duration}}</div>
-									<div class='white--text' style='font-size:14px;font-weight:600'>{{i.modulesQt}}</div>
+									<div class='white--text' style='font-size:14px;font-weight:600'>{{i.durationMinutes}}</div>
+									<div class='white--text' style='font-size:14px;font-weight:600'>{{i.modulesQt}} Modules</div>
 								</v-layout>
 							</v-card-title>
 						</v-flex>
 					</v-layout>
-					<div style='height:118px;padding:15px;margin-bottom:10px;overflow:hidden'>
-						<h3 class='cardTitle subheading font-weight-medium mb-2 blue--text'>{{i.name}}</h3>
+					<div style='height:118px;overflow:hidden' class='mt-2 ml-3'>
+						<h4 class='caption font-weight-medium' style='color:rgba(0,0,0,.5)'>{{i.type}}</h4>
+						<h3 class='cardTitle subheading font-weight-medium mb-1 blue--text'
+							@click='$router.push({name:"insideCourse", params:{data: i}})'
+						>{{i.name}}</h3>
 						<div class='.body-2'>{{i.description}}</div>
 					</div>
 					<v-divider light></v-divider>
 					<v-layout align-end justify-center row>
 						<v-icon id='favIcon' v-bind:color='i.favIconColor' @mouseover='i.favIconColor = "red"' @mouseleave='i.favIconColor = "grey"' @click='i.favIconStyle=(i.favIconStyle=="favorite"?"favorite_border":"favorite")'>{{i.favIconStyle}}</v-icon>
 						<v-spacer/>
-						<v-btn class='roleBtn' small depressed color='grey lighten-2'>{{i.roles}}</v-btn>
-						<v-btn class='lvlBtn' small depressed color='grey lighten-2'>{{i.levels}}</v-btn>
+						<v-btn class='roleBtn' small depressed color='grey lighten-2'>{{i.roles[0].name}}</v-btn>
+						<v-btn class='lvlBtn' small depressed color='grey lighten-2'>{{i.levels[0].name}}</v-btn>
 					</v-layout>
 				</v-card>
 			</v-flex>
@@ -38,6 +41,11 @@
 </template>
 
 <script>
+var courseCardsData;
+
+import axios from 'axios'
+
+/*
 var courseCardsData = [
 	{ 
 		backgroundColor: 'cyan darken-3',
@@ -100,8 +108,50 @@ var courseCardsData = [
 		levels: 'Advanced'
 	}
 ]
+*/
+
+function runWebCalculation (params) {
+axios({
+	method: 'post',
+	url: 'https://m.it.ua/ws/webservice.asmx/ExecuteEx?pureJSON=',
+	data: {
+		calcId: params.serviceName,
+		args: JSON.stringify(params.parameters),
+		ticket: ''
+	}
+})
+.then(function (response) {
+	// handle success
+	params.onSuccess(response.data);
+})
+.catch(function (error) {
+	// handle error
+	console.log(error);
+	if(params.onError)
+	{
+		params.onError(error);
+	}
+})
+.then(function () {
+	// always executed
+	if(params.finnaly)
+	{
+		params.finnaly();
+	}
+});
+}
 export default {
 	name: 'Courses',
+	created() {
+		runWebCalculation({
+			serviceName: '_LMS.COURSES.GET',
+			parameters: { },
+			onSuccess: function(data) {
+				courseCardsData = data.courses; 
+				console.log(courseCardsData[0].durationMinutes);
+			}
+		});
+	},
 	data: () => ({
 		courseCards: courseCardsData
 	})

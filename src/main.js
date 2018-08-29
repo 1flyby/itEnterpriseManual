@@ -13,12 +13,14 @@ Vue.use(VueRouter)
 
 import Home from './components/Home'
 import Courses from './components/Courses'
+import insideCourse from './components/insideCourse'
 
 // инициализируем роуты
 const routes = [
 // указываем, что компонент Home будет отображаться на нашей главной странице
 { path: '/', component: Home },
-{ path: '/courses', component: Courses }
+{ path: '/courses', component: Courses },
+{ path: '/insideCourse', name: 'insideCourse',component: insideCourse, props: true }
 ]
 // Создаем экземпляр роутера и передайте опцию `routes`
 const router = new VueRouter({
