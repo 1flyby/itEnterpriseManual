@@ -20,7 +20,7 @@ const routes = [
 // указываем, что компонент Home будет отображаться на нашей главной странице
 { path: '/', component: Home },
 { path: '/courses', component: Courses },
-{ path: '/insideCourse', name: 'insideCourse',component: insideCourse, props: true }
+{ name: 'insideCourse', path: '/insideCourse/:courseId',  component: insideCourse }
 ]
 // Создаем экземпляр роутера и передайте опцию `routes`
 const router = new VueRouter({

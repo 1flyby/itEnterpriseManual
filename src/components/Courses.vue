@@ -23,13 +23,13 @@
 					<div style='height:118px;overflow:hidden' class='mt-2 ml-3'>
 						<h4 class='caption font-weight-medium' style='color:rgba(0,0,0,.5)'>{{i.type}}</h4>
 						<h3 class='cardTitle subheading font-weight-medium mb-1 blue--text'
-							@click='$router.push({name:"insideCourse", params:{data: i}})'
+							@click='$router.push({name: "insideCourse", params: {courseId: i.courseId, courseData: i}})'
 						>{{i.name}}</h3>
 						<div class='.body-2'>{{i.description}}</div>
 					</div>
 					<v-divider light></v-divider>
 					<v-layout align-end justify-center row>
-						<v-icon id='favIcon' v-bind:color='i.favIconColor' @mouseover='i.favIconColor = "red"' @mouseleave='i.favIconColor = "grey"' @click='i.favIconStyle=(i.favIconStyle=="favorite"?"favorite_border":"favorite")'>{{i.favIconStyle}}</v-icon>
+						<v-icon id='favIcon' v-bind:color='i.favIconColor' @mouseenter='i.favIconColor = "red"' @mouseleave='i.favIconColor = "grey"' @click='i.favIconStyle=(i.favIconStyle=="favorite"?"favorite_border":"favorite")'>{{i.favIconStyle}}</v-icon>
 						<v-spacer/>
 						<v-btn class='roleBtn' small depressed color='grey lighten-2'>{{i.roles[0].name}}</v-btn>
 						<v-btn class='lvlBtn' small depressed color='grey lighten-2'>{{i.levels[0].name}}</v-btn>
@@ -121,6 +121,7 @@ axios({
 	}
 })
 .then(function (response) {
+	console.log
 	// handle success
 	params.onSuccess(response.data);
 })
