@@ -14,13 +14,15 @@ Vue.use(VueRouter)
 import Home from './components/Home'
 import Courses from './components/Courses'
 import insideCourse from './components/insideCourse'
+import lesson from './components/lesson'
 
 // инициализируем роуты
 const routes = [
 // указываем, что компонент Home будет отображаться на нашей главной странице
 { path: '/', component: Home },
 { path: '/courses', component: Courses },
-{ name: 'insideCourse', path: '/insideCourse/:courseId',  component: insideCourse }
+{ name: 'insideCourse', path: '/courses/:courseName',  component: insideCourse },
+{ name: 'lesson', path: '/courses/:courseName/:lessonName',  component: lesson }
 ]
 // Создаем экземпляр роутера и передайте опцию `routes`
 const router = new VueRouter({

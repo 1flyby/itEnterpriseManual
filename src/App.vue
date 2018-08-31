@@ -92,7 +92,7 @@ export default {
 				routerLinkData: '/courses'
 			},{
 				title: 'Modules',
-				routerLinkData: '/modules'
+				routerLinkData: '/lesson'
 			}],
 			miniVariant: false,
 			right: true,
